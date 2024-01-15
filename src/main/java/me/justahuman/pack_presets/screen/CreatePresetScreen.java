@@ -35,21 +35,33 @@ public class CreatePresetScreen extends Screen {
     @Override
     protected void init() {
         this.nameField = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, 66, 200, 20, Text.translatable("pack_presets.screen.create_preset.enter_name"));
-        this.nameField.setTextPredicate(CreatePresetScreen::validName);
+        this.nameField.setTextPredicate(string -> string.isEmpty() || validName(string));
         this.nameField.setSuggestion("example_preset_name");
-        this.nameField.setChangedListener(name -> this.updateCreateButton());
+        this.nameField.setMaxLength(32);
+        this.nameField.setChangedListener(name -> {
+            this.nameField.setSuggestion(name.isEmpty() ? "example_preset_name" : "");
+            this.updateCreateButton();
+        });
         this.addSelectableChild(this.nameField);
 
         this.displayNameField = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, 106, 200, 20, Text.translatable("pack_presets.screen.create_preset.enter_display_name"));
-        this.displayNameField.setTextPredicate(CreatePresetScreen::validDisplayName);
+        this.displayNameField.setTextPredicate(string -> string.isEmpty() || validDisplayName(string));
         this.displayNameField.setSuggestion("Example Preset Name");
-        this.displayNameField.setChangedListener(name -> this.updateCreateButton());
+        this.displayNameField.setMaxLength(32);
+        this.displayNameField.setChangedListener(name -> {
+            this.displayNameField.setSuggestion(name.isEmpty() ? "Example Preset Name" : "");
+            this.updateCreateButton();
+        });
         this.addSelectableChild(this.displayNameField);
 
         this.descriptionField = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, 146, 200, 20, Text.translatable("pack_presets.screen.create_preset.enter_description"));
-        this.descriptionField.setTextPredicate(CreatePresetScreen::validDescription);
+        this.descriptionField.setTextPredicate(string -> string.isEmpty() || validDescription(string));
         this.descriptionField.setSuggestion("This is an example preset description.");
-        this.descriptionField.setChangedListener(name -> this.updateCreateButton());
+        this.descriptionField.setMaxLength(256);
+        this.descriptionField.setChangedListener(name -> {
+            this.descriptionField.setSuggestion(name.isEmpty() ? "This is an example preset description." : "");
+            this.updateCreateButton();
+        });
         this.addSelectableChild(this.descriptionField);
 
         this.createButton = this.addDrawableChild(ButtonWidget.builder(Text.translatable("pack_presets.screen.create_preset.create"), button -> {

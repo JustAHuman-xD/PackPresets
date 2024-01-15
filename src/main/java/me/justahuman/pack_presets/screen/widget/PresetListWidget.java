@@ -138,7 +138,6 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
             final PresetCompatibility compatibility = this.preset.getCompatibility();
             if (compatibility.isCompatible()) {
                 this.preset.apply(this.widget.screen.getOrganizer());
-                this.widget.screen.close();
                 return;
             }
 
@@ -146,7 +145,6 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
                 if (confirmed) {
                     this.preset.apply(this.widget.screen.getOrganizer());
                 }
-                this.widget.screen.close();
             }, Text.translatable("pack_presets.preset.incompatible.confirm.title"), compatibility.getConfirmMessage()));
         }
 

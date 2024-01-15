@@ -30,8 +30,10 @@ public abstract class PackScreenMixin extends Screen {
         final int x = this.width / 2;
         final int y = this.height - 48;
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("pack_presets.screen.pack.button.open_presets"), button -> {
-                    this.client.setScreen(new PackPresetsScreen(self(), PackPresets.getPresetsDir()));
-        }).tooltip(Tooltip.of(Text.translatable("pack_presets.screen.pack.button.open_presets.tooltip"))).dimensions(x - 100 - 2 - 50, y, 100, 20).build());
+            this.close();
+            this.client.setScreen(new PackPresetsScreen(self(), PackPresets.getPresetsDir()));
+        }).tooltip(Tooltip.of(Text.translatable("pack_presets.screen.pack.button.open_presets.tooltip")))
+        .dimensions(x - 100 - 2 - 50, y, 100, 20).build());
 
         if (this.drawables.get(2) instanceof ButtonWidget folderButton) {
             folderButton.setDimensionsAndPosition(100, 20, x - 50, y);
@@ -40,12 +42,17 @@ public abstract class PackScreenMixin extends Screen {
         doneButton.setDimensionsAndPosition(100, 20, x + 50 + 2, y);
 
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("pack_presets.screen.pack.button.create_preset"), button -> {
+            this.close();
             this.client.setScreen(new CreatePresetScreen(self()));
-        }).tooltip(Tooltip.of(Text.translatable("pack_presets.screen.pack.button.create_preset.tooltip"))).dimensions(selectedPackList.getX() + selectedPackList.getWidth() + 4, selectedPackList.getY(), 75, 20).build());
+        }).tooltip(Tooltip.of(Text.translatable("pack_presets.screen.pack.button.create_preset.tooltip")))
+        .dimensions(selectedPackList.getX() + selectedPackList.getWidth() + 4, selectedPackList.getY(), 75, 20)
+        .build());
     }
 
     @Unique
     public PackScreen self() {
         return (PackScreen) (Object) this;
     }
+
+    @Shadow public abstract void close();
 }
