@@ -1,0 +1,18 @@
+accessWidener v2 named
+
+accessible field net/minecraft/client/gui/screen/Screen drawables Ljava/util/List;
+accessible field net/minecraft/client/gui/screen/pack/PackListWidget INCOMPATIBLE Lnet/minecraft/text/Text;
+accessible field net/minecraft/client/gui/screen/pack/PackListWidget SELECT_HIGHLIGHTED_TEXTURE Lnet/minecraft/util/Identifier;
+accessible field net/minecraft/client/gui/screen/pack/PackListWidget SELECT_TEXTURE Lnet/minecraft/util/Identifier;
+accessible field net/minecraft/client/gui/screen/pack/PackScreen UNKNOWN_PACK Lnet/minecraft/util/Identifier;
+accessible field net/minecraft/client/gui/screen/pack/PackScreen organizer Lnet/minecraft/client/gui/screen/pack/ResourcePackOrganizer;
+
+accessible field net/minecraft/client/gui/screen/pack/ResourcePackOrganizer iconIdSupplier Ljava/util/function/Function;
+accessible field net/minecraft/client/gui/screen/pack/ResourcePackOrganizer applier Ljava/util/function/Consumer;
+accessible field net/minecraft/client/gui/screen/pack/ResourcePackOrganizer resourcePackManager Lnet/minecraft/resource/ResourcePackManager;
+
+accessible method net/minecraft/client/font/MultilineText$Line <init> (Lnet/minecraft/text/OrderedText;I)V
+accessible method net/minecraft/client/gui/screen/pack/PackListWidget$ResourcePackEntry trimTextToWidth (Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/text/Text;)Lnet/minecraft/text/OrderedText;
+accessible method net/minecraft/client/gui/screen/pack/PackListWidget$ResourcePackEntry createMultilineText (Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/text/Text;)Lnet/minecraft/client/font/MultilineText;
+
+accessible class net/minecraft/client/gui/screen/pack/PackScreen$DirectoryWatcher

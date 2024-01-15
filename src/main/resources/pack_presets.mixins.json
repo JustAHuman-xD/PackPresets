@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.justahuman.pack_presets.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "PackScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

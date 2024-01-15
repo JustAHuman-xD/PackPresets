@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "pack_presets",
+  "version": "${version}",
+  "name": "PackPresets",
+  "description": "A mod to save selected resource packs as a preset for easy swapping ability!",
+  "authors": [
+    "JustAHuman"
+  ],
+  "contact": {
+    "website": "https://github.com/JustAHuman-xD",
+    "repo": "https://github.com/JustAHuman-xD/PackPresets"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/pack_presets/icon.png",
+  "environment": "client",
+  "accessWidener": "pack_presets.accesswidener",
+  "entrypoints": {
+    "client": [
+      "me.justahuman.pack_presets.PackPresets"
+    ]
+  },
+  "mixins": [
+    "pack_presets.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

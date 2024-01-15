@@ -1,0 +1,23 @@
+{
+  "pack_presets.screen.pack.button.open_presets": "Presets",
+  "pack_presets.screen.pack.button.open_presets.tooltip": "Open the presets screen",
+  "pack_presets.screen.pack.button.create_preset": "Create Preset",
+  "pack_presets.screen.pack.button.create_preset.tooltip": "Create a new preset from the current pack selection",
+
+  "pack_presets.screen.create_preset.title": "Create Preset",
+  "pack_presets.screen.create_preset.enter_name": "Preset Name",
+  "pack_presets.screen.create_preset.enter_display_name": "Preset Display Name",
+  "pack_presets.screen.create_preset.enter_description": "Preset Description",
+  "pack_presets.screen.create_preset.create": "Create Preset",
+
+  "pack_presets.screen.presets.title": "Pack Presets",
+  "pack_presets.screen.presets.subtitle": "Select a preset to load it!",
+  "pack_presets.screen.presets.folder": "Open Preset Folder",
+  "pack_presets.screen.presets.folder.tooltip": "(Opens the folder where presets are stored)",
+
+  "pack_presets.preset.incompatible.both": "(%s Packs made for the wrong version of Minecraft)",
+  "pack_presets.preset.incompatible.new": "(%s Packs made for a newer version of Minecraft)",
+  "pack_presets.preset.incompatible.old": "(%s Packs made for an older version of Minecraft)",
+  "pack_presets.preset.incompatible.confirm.title": "Are you sure you want to load this pack?",
+  "pack_presets.preset.incompatible.confirm": "This preset contains packs made for other versions of Minecraft and may not work correctly."
+}
