@@ -8,10 +8,20 @@
     "JustAHuman"
   ],
   "contact": {
-    "website": "https://github.com/JustAHuman-xD",
-    "repo": "https://github.com/JustAHuman-xD/PackPresets"
+    "homepage": "https://github.com/JustAHuman-xD",
+    "sources": "https://github.com/JustAHuman-xD/PackPresets",
+    "issues": "https://github.com/JustAHuman-xD/PackPresets/issues",
+    "discord": "https://discord.gg/y6fV6pbgHB"
   },
   "license": "GPL-3.0",
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/y6fV6pbgHB"
+      },
+      "update_checker": true
+    }
+  },
   "icon": "assets/pack_presets/icon.png",
   "environment": "client",
   "accessWidener": "pack_presets.accesswidener",
