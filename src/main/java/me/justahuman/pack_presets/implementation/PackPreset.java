@@ -2,11 +2,16 @@ package me.justahuman.pack_presets.implementation;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import net.fabricmc.fabric.impl.resource.loader.ModResourcePackCreator;
+import net.fabricmc.fabric.impl.resource.loader.ModResourcePackUtil;
 import net.minecraft.client.font.MultilineText;
 import net.minecraft.client.gui.screen.pack.PackScreen;
 import net.minecraft.client.gui.screen.pack.ResourcePackOrganizer;
+import net.minecraft.resource.DirectoryResourcePack;
+import net.minecraft.resource.ResourcePack;
 import net.minecraft.resource.ResourcePackManager;
 import net.minecraft.resource.ResourcePackProfile;
+import net.minecraft.resource.ZipResourcePack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -62,6 +67,10 @@ public final class PackPreset {
         for (ResourcePackProfile profile : Lists.reverse(this.packs)) {
             if (icons.size() == 4) {
                 break;
+            }
+
+            if (profile.getSource() == ModResourcePackCreator.RESOURCE_PACK_SOURCE) {
+                continue;
             }
 
             final Identifier icon = organizer.iconIdSupplier.apply(profile);

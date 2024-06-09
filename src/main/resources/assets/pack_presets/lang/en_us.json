@@ -18,6 +18,6 @@
   "pack_presets.preset.incompatible.both": "(%s Packs made for the wrong version of Minecraft)",
   "pack_presets.preset.incompatible.new": "(%s Packs made for a newer version of Minecraft)",
   "pack_presets.preset.incompatible.old": "(%s Packs made for an older version of Minecraft)",
-  "pack_presets.preset.incompatible.confirm.title": "Are you sure you want to load this pack?",
+  "pack_presets.preset.incompatible.confirm.title": "Are you sure you want to load this preset?",
   "pack_presets.preset.incompatible.confirm": "This preset contains packs made for other versions of Minecraft and may not work correctly."
 }

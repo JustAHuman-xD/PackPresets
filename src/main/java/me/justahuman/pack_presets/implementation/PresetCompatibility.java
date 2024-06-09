@@ -1,5 +1,6 @@
 package me.justahuman.pack_presets.implementation;
 
+import net.fabricmc.fabric.impl.resource.loader.ModResourcePackCreator;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.MultilineText;
 import net.minecraft.client.font.TextRenderer;
@@ -19,6 +20,10 @@ public class PresetCompatibility {
         int newCount = 0;
 
         for (ResourcePackProfile pack : packs) {
+            if (pack.getSource() == ModResourcePackCreator.RESOURCE_PACK_SOURCE) {
+                continue;
+            }
+
             ResourcePackCompatibility compatibility = pack.getCompatibility();
             switch (compatibility) {
                 case TOO_OLD -> oldCount++;
