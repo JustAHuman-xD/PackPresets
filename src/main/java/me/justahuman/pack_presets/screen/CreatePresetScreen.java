@@ -112,7 +112,7 @@ public class CreatePresetScreen extends Screen {
         final JsonObject preset = new JsonObject();
         final JsonArray packs = new JsonArray();
 
-        this.parent.organizer.resourcePackManager.getEnabledNames().forEach(packs::add);
+        this.parent.organizer.resourcePackManager.getEnabledIds().forEach(packs::add);
 
         preset.addProperty("name", this.nameField.getText());
         preset.addProperty("display_name", this.displayNameField.getText());

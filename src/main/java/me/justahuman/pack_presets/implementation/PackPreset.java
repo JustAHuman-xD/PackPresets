@@ -3,15 +3,11 @@ package me.justahuman.pack_presets.implementation;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.fabricmc.fabric.impl.resource.loader.ModResourcePackCreator;
-import net.fabricmc.fabric.impl.resource.loader.ModResourcePackUtil;
 import net.minecraft.client.font.MultilineText;
 import net.minecraft.client.gui.screen.pack.PackScreen;
 import net.minecraft.client.gui.screen.pack.ResourcePackOrganizer;
-import net.minecraft.resource.DirectoryResourcePack;
-import net.minecraft.resource.ResourcePack;
 import net.minecraft.resource.ResourcePackManager;
 import net.minecraft.resource.ResourcePackProfile;
-import net.minecraft.resource.ZipResourcePack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -38,7 +34,7 @@ public final class PackPreset {
     public void apply(ResourcePackOrganizer organizer) {
         final ResourcePackManager manager = organizer.resourcePackManager;
         final Consumer<ResourcePackManager> applier = organizer.applier;
-        manager.setEnabledProfiles(this.packs.stream().map(ResourcePackProfile::getName).collect(ImmutableList.toImmutableList()));
+        manager.setEnabledProfiles(this.packs.stream().map(ResourcePackProfile::getId).collect(ImmutableList.toImmutableList()));
         applier.accept(manager);
     }
 

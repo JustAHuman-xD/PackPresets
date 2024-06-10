@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PackScreen.class)
 public abstract class PackScreenMixin extends Screen {
-    @Shadow private ButtonWidget doneButton;
     @Shadow private PackListWidget selectedPackList;
 
     protected PackScreenMixin(Text title) {
@@ -38,8 +37,6 @@ public abstract class PackScreenMixin extends Screen {
         if (this.drawables.get(2) instanceof ButtonWidget folderButton) {
             folderButton.setDimensionsAndPosition(100, 20, x - 50, y);
         }
-
-        doneButton.setDimensionsAndPosition(100, 20, x + 50 + 2, y);
 
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("pack_presets.screen.pack.button.create_preset"), button -> {
             this.close();

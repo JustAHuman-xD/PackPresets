@@ -80,11 +80,6 @@ public class PackPresetsScreen extends Screen {
         context.drawCenteredTextWithShadow(this.textRenderer, SUB_TITLE, this.width / 2, 20, 0xFFFFFF);
     }
 
-    @Override
-    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackgroundTexture(context);
-    }
-
     public void refresh() {
         this.organizer.refresh();
         this.presetList.refresh();

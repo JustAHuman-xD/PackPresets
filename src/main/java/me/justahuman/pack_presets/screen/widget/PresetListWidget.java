@@ -51,7 +51,7 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
     }
 
     @Override
-    protected int getScrollbarPositionX() {
+    protected int getScrollbarX() {
         return this.getRight() - 6;
     }
 
