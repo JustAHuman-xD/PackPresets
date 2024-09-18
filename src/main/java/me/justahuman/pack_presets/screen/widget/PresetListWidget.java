@@ -33,13 +33,13 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
     public void refresh() {
         children().clear();
         final PresetEntry entry = getSelectedOrNull();
-        final String name = entry == null ? "" : entry.getPreset().getName();
+        final String id = entry == null ? "" : entry.getPreset().getId();
         setSelected(null);
 
         for (PackPreset preset : PackPresets.getProvider().getPresets()) {
             PresetEntry presetEntry = new PresetEntry(this.client, this, preset);
             children().add(presetEntry);
-            if (preset.getName().equals(name)) {
+            if (preset.getId().equals(id)) {
                 setSelected(presetEntry);
             }
         }
@@ -51,7 +51,7 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
     }
 
     @Override
-    protected int getScrollbarPositionX() {
+    protected int getScrollbarX() {
         return this.getRight() - 6;
     }
 

@@ -17,14 +17,14 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public final class PackPreset {
-    private final String name;
+    private final String id;
     private final Text displayName;
     private final MultilineText description;
     private final List<ResourcePackProfile> packs;
     private final PresetCompatibility compatibility;
 
-    public PackPreset(String name, Text displayName, MultilineText description, List<ResourcePackProfile> packs) {
-        this.name = name;
+    public PackPreset(String id, Text displayName, MultilineText description, List<ResourcePackProfile> packs) {
+        this.id = id;
         this.displayName = displayName;
         this.description = description;
         this.packs = packs;
@@ -34,12 +34,12 @@ public final class PackPreset {
     public void apply(ResourcePackOrganizer organizer) {
         final ResourcePackManager manager = organizer.resourcePackManager;
         final Consumer<ResourcePackManager> applier = organizer.applier;
-        manager.setEnabledProfiles(this.packs.stream().map(ResourcePackProfile::getName).collect(ImmutableList.toImmutableList()));
+        manager.setEnabledProfiles(this.packs.stream().map(ResourcePackProfile::getId).collect(ImmutableList.toImmutableList()));
         applier.accept(manager);
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
     public Text getDisplayName() {
@@ -87,7 +87,7 @@ public final class PackPreset {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != this.getClass()) return false;
         var that = (PackPreset) obj;
-        return Objects.equals(this.name, that.name) &&
+        return Objects.equals(this.id, that.id) &&
                 Objects.equals(this.displayName, that.displayName) &&
                 Objects.equals(this.description, that.description) &&
                 Objects.equals(this.packs, that.packs);
@@ -95,13 +95,13 @@ public final class PackPreset {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, displayName, description, packs);
+        return Objects.hash(id, displayName, description, packs);
     }
 
     @Override
     public String toString() {
         return "PackPreset[" +
-                "name=" + name + ", " +
+                "id=" + id + ", " +
                 "displayName=" + displayName + ", " +
                 "description=" + description + ", " +
                 "packs=" + packs + ']';

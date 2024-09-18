@@ -58,9 +58,10 @@ public class PackPresetProvider {
 
     private PackPreset getPreset(Path path, JsonObject json) {
         try {
-            final String name = json.get("name").getAsString();
-            if (!CreatePresetScreen.validName(name)) {
-                LOGGER.warn("Invalid preset name '{}' of '{}', ignoring", name, path);
+            // Was previously called "name" not "id"
+            final String id = json.has("name") ? json.get("name").getAsString() : json.get("id").getAsString();
+            if (!CreatePresetScreen.validId(id)) {
+                LOGGER.warn("Invalid preset id '{}' of '{}', ignoring", id, path);
                 return null;
             }
 
@@ -78,13 +79,12 @@ public class PackPresetProvider {
 
             final List<String> packs = json.get("packs").getAsJsonArray().asList().stream().map(JsonElement::getAsString).toList();
             if (packs.isEmpty()) {
-                LOGGER.warn("Preset '{}' of '{}' has no packs, ignoring", name, path);
+                LOGGER.warn("Preset '{}' of '{}' has no packs, ignoring", id, path);
                 return null;
             }
 
             return new PackPreset(
-                    name,
-                    Text.literal(displayName),
+                    id, Text.literal(displayName),
                     MultilineText.create(MinecraftClient.getInstance().textRenderer, Text.literal(description), 257, 2),
                     packs.stream().map(manager::getProfile).filter(Objects::nonNull).toList()
             );

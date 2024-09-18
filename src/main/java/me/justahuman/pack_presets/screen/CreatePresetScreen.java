@@ -21,7 +21,7 @@ import java.io.IOException;
 public class CreatePresetScreen extends Screen {
     private final PackScreen parent;
 
-    private TextFieldWidget nameField;
+    private TextFieldWidget idField;
     private TextFieldWidget displayNameField;
     private TextFieldWidget descriptionField;
     private ButtonWidget createButton;
@@ -34,15 +34,15 @@ public class CreatePresetScreen extends Screen {
 
     @Override
     protected void init() {
-        this.nameField = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, 66, 200, 20, Text.translatable("pack_presets.screen.create_preset.enter_name"));
-        this.nameField.setTextPredicate(string -> string.isEmpty() || validName(string));
-        this.nameField.setSuggestion("example_preset_name");
-        this.nameField.setMaxLength(32);
-        this.nameField.setChangedListener(name -> {
-            this.nameField.setSuggestion(name.isEmpty() ? "example_preset_name" : "");
+        this.idField = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, 66, 200, 20, Text.translatable("pack_presets.screen.create_preset.enter_name"));
+        this.idField.setTextPredicate(string -> string.isEmpty() || validId(string));
+        this.idField.setSuggestion("example_preset_id");
+        this.idField.setMaxLength(32);
+        this.idField.setChangedListener(name -> {
+            this.idField.setSuggestion(name.isEmpty() ? "example_preset_id" : "");
             this.updateCreateButton();
         });
-        this.addSelectableChild(this.nameField);
+        this.addSelectableChild(this.idField);
 
         this.displayNameField = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, 106, 200, 20, Text.translatable("pack_presets.screen.create_preset.enter_display_name"));
         this.displayNameField.setTextPredicate(string -> string.isEmpty() || validDisplayName(string));
@@ -72,19 +72,19 @@ public class CreatePresetScreen extends Screen {
             close();
         }).dimensions(this.width / 2 - 100, this.height / 4 + 120 + 18, 200, 20).build());
 
-        this.setInitialFocus(this.nameField);
+        this.setInitialFocus(this.idField);
         this.updateCreateButton();
     }
 
     @Override
     public void resize(MinecraftClient client, int width, int height) {
-        final String name = this.nameField.getText();
+        final String name = this.idField.getText();
         final String displayName = this.displayNameField.getText();
         final String description = this.descriptionField.getText();
 
         this.init(client, width, height);
 
-        this.nameField.setText(name);
+        this.idField.setText(name);
         this.displayNameField.setText(displayName);
         this.descriptionField.setText(description);
     }
@@ -93,17 +93,17 @@ public class CreatePresetScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
         context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 17, 16777215);
-        context.drawTextWithShadow(this.textRenderer, Text.translatable("pack_presets.screen.create_preset.enter_name"), this.width / 2 - 100 + 1, 53, 10526880);
+        context.drawTextWithShadow(this.textRenderer, Text.translatable("pack_presets.screen.create_preset.enter_id"), this.width / 2 - 100 + 1, 53, 10526880);
         context.drawTextWithShadow(this.textRenderer, Text.translatable("pack_presets.screen.create_preset.enter_display_name"), this.width / 2 - 100 + 1, 94, 10526880);
         context.drawTextWithShadow(this.textRenderer, Text.translatable("pack_presets.screen.create_preset.enter_description"), this.width / 2 - 100 + 1, 134, 10526880);
-        this.nameField.render(context, mouseX, mouseY, delta);
+        this.idField.render(context, mouseX, mouseY, delta);
         this.displayNameField.render(context, mouseX, mouseY, delta);
         this.descriptionField.render(context, mouseX, mouseY, delta);
     }
 
     public void updateCreateButton() {
         this.createButton.active =
-                validName(this.nameField.getText())
+                validId(this.idField.getText())
                 && validDisplayName(this.displayNameField.getText())
                 && validDescription(this.descriptionField.getText());
     }
@@ -112,14 +112,14 @@ public class CreatePresetScreen extends Screen {
         final JsonObject preset = new JsonObject();
         final JsonArray packs = new JsonArray();
 
-        this.parent.organizer.resourcePackManager.getEnabledNames().forEach(packs::add);
+        this.parent.organizer.resourcePackManager.getEnabledIds().forEach(packs::add);
 
-        preset.addProperty("name", this.nameField.getText());
+        preset.addProperty("id", this.idField.getText());
         preset.addProperty("display_name", this.displayNameField.getText());
         preset.addProperty("description", this.descriptionField.getText());
         preset.add("packs", packs);
 
-        final File presetFile = PackPresets.getPresetsDir().resolve(this.nameField.getText() + ".json").toFile();
+        final File presetFile = PackPresets.getPresetsDir().resolve(this.idField.getText() + ".json").toFile();
         try {
             presetFile.getParentFile().mkdirs();
             presetFile.createNewFile();
@@ -144,7 +144,7 @@ public class CreatePresetScreen extends Screen {
         this.client.setScreen(this.parent);
     }
 
-    public static boolean validName(String string) {
+    public static boolean validId(String string) {
         return !string.isBlank() && string.matches("^[a-z0-9_]+$");
     }
 
