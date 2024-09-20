@@ -5,7 +5,7 @@
   "pack_presets.screen.pack.button.create_preset.tooltip": "Create a new preset from the current pack selection",
 
   "pack_presets.screen.create_preset.title": "Create Preset",
-  "pack_presets.screen.create_preset.enter_name": "Preset Name",
+  "pack_presets.screen.create_preset.enter_id": "Preset Id",
   "pack_presets.screen.create_preset.enter_display_name": "Preset Display Name",
   "pack_presets.screen.create_preset.enter_description": "Preset Description",
   "pack_presets.screen.create_preset.create": "Create Preset",
