@@ -16,7 +16,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PackScreen.class)
 public abstract class PackScreenMixin extends Screen {
@@ -31,24 +33,26 @@ public abstract class PackScreenMixin extends Screen {
     }
 
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/ThreePartsLayoutWidget;addFooter(Lnet/minecraft/client/gui/widget/Widget;)Lnet/minecraft/client/gui/widget/Widget;"), method = "init")
-    public <T extends Widget> T addWidgets(ThreePartsLayoutWidget instance, T widget) {
+    public <T extends Widget> T addPresetsButton(ThreePartsLayoutWidget instance, T widget) {
         if (widget instanceof DirectionalLayoutWidget footer) {
             footer.add(ButtonWidget.builder(OPEN_PRESETS, button -> {
                 this.close();
                 this.client.setScreen(new PackPresetsScreen(self(), PackPresets.getPresetsDir()));
             }).tooltip(Tooltip.of(OPEN_PRESETS_TOOLTIP)).build());
         }
+        return instance.addFooter(widget);
+    }
 
+    @Inject(at = @At("TAIL"), method = "init")
+    public void addCreatePresetButton(CallbackInfo ci) {
         this.addDrawableChild(ButtonWidget.builder(CREATE_PRESET, button -> {
             this.close();
             this.client.setScreen(new CreatePresetScreen(self()));
         }).tooltip(Tooltip.of(CREATE_PRESET_TOOLTIP)).dimensions(
-            selectedPackList.getX() + selectedPackList.getWidth() + 4,
-            selectedPackList.getY(),
-            75, 20
+                selectedPackList.getX() + selectedPackList.getWidth() + 4,
+                selectedPackList.getY(),
+                75, 20
         ).build());
-
-        return instance.addFooter(widget);
     }
 
     @Unique
