@@ -4,6 +4,7 @@
   "package": "me.justahuman.pack_presets.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "EntryWidgetAccessor",
     "PackScreenMixin"
   ],
   "injectors": {

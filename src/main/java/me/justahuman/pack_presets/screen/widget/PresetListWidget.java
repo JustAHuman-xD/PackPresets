@@ -1,16 +1,18 @@
 package me.justahuman.pack_presets.screen.widget;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import me.justahuman.pack_presets.PackPresets;
 import me.justahuman.pack_presets.implementation.PackPreset;
 import me.justahuman.pack_presets.implementation.PresetCompatibility;
 import me.justahuman.pack_presets.screen.PackPresetsScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.MultilineText;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.ConfirmScreen;
 import net.minecraft.client.gui.screen.pack.PackListWidget;
 import net.minecraft.client.gui.screen.pack.PackListWidget.ResourcePackEntry;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -22,7 +24,7 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
     private final PackPresetsScreen screen;
 
     public PresetListWidget(MinecraftClient client, PackPresetsScreen screen, int width, int height) {
-        super(client, width, height - 83, 32, 36);
+        super(client, width, height, height - 83, 32, 36);
 
         this.screen = screen;
         this.centerListVertically = false;
@@ -37,6 +39,7 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
         setSelected(null);
 
         for (PackPreset preset : PackPresets.getProvider().getPresets()) {
+            System.out.println("preset: " + preset.getName());
             PresetEntry presetEntry = new PresetEntry(this.client, this, preset);
             children().add(presetEntry);
             if (preset.getName().equals(name)) {
@@ -52,7 +55,7 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
 
     @Override
     protected int getScrollbarPositionX() {
-        return this.getRight() - 6;
+        return this.getRowRight() - 6;
     }
 
     @Override
@@ -92,34 +95,36 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             final PresetCompatibility compatibility = this.preset.getCompatibility();
             if (!compatibility.isCompatible()) {
-                context.fill(x - 1, y - 1, x + entryWidth - 3, y + entryHeight +1, -8978432);
+                DrawableHelper.fill(matrices, x - 1, y - 1, x + entryWidth - 3, y + entryHeight +1, -8978432);
             }
 
             final List<Identifier> icons = this.preset.getPackIcons(this.widget.screen.getOrganizer());
             final int width = 32 / icons.size();
             for (int i = 0; i < icons.size(); i++) {
                 final Identifier icon = icons.get(i);
-                context.drawTexture(icon, x + (i * width), y, 0.0F, 0.0F, width, 32, 32, 32);
+                RenderSystem.setShaderTexture(0, icon);
+                DrawableHelper.drawTexture(matrices, x + (i * width), y, 0.0F, 0.0F, width, 32, 32, 32);
             }
 
             OrderedText nameText = this.displayName;
             MultilineText descriptionText = this.description;
             if (Boolean.TRUE.equals(this.client.options.getTouchscreen().getValue()) || hovered || this.widget.getSelectedOrNull() == this && this.widget.isFocused()) {
-                context.fill(x, y, x + 32, y + 32, -1601138544);
+                RenderSystem.setShaderTexture(0, PackListWidget.RESOURCE_PACKS_TEXTURE);
+                DrawableHelper.fill(matrices, x, y, x + 32, y + 32, -1601138544);
                 if (!compatibility.isCompatible()) {
                     nameText = this.incompatibleText;
                     descriptionText = this.compatibilityNotificationText;
                 }
 
                 int relativeX = mouseX - x;
-                context.drawGuiTexture(relativeX < 32 ? PackListWidget.SELECT_HIGHLIGHTED_TEXTURE : PackListWidget.SELECT_TEXTURE, x, y, 32, 32);
+                DrawableHelper.drawTexture(matrices, x, y, 0.0F, relativeX < 32 ? 32.0F : 0.0F, 32, 32, 256, 256);
             }
 
-            context.drawTextWithShadow(this.client.textRenderer, nameText, x + 32 + 2, y + 1, 16777215);
-            descriptionText.drawWithShadow(context, x + 32 + 2, y + 12, 10, -8355712);
+            this.client.textRenderer.drawWithShadow(matrices, nameText, x + 32 + 2, y + 1, 16777215);
+            descriptionText.drawWithShadow(matrices, x + 32 + 2, y + 12, 10, -8355712);
         }
 
         @Override

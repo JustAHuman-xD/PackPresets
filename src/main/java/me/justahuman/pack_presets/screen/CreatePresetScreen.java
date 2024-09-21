@@ -6,11 +6,12 @@ import com.google.gson.JsonObject;
 import com.mojang.logging.LogUtils;
 import me.justahuman.pack_presets.PackPresets;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.pack.PackScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 import java.io.BufferedWriter;
@@ -90,15 +91,16 @@ public class CreatePresetScreen extends Screen {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 17, 16777215);
-        context.drawTextWithShadow(this.textRenderer, Text.translatable("pack_presets.screen.create_preset.enter_name"), this.width / 2 - 100 + 1, 53, 10526880);
-        context.drawTextWithShadow(this.textRenderer, Text.translatable("pack_presets.screen.create_preset.enter_display_name"), this.width / 2 - 100 + 1, 94, 10526880);
-        context.drawTextWithShadow(this.textRenderer, Text.translatable("pack_presets.screen.create_preset.enter_description"), this.width / 2 - 100 + 1, 134, 10526880);
-        this.nameField.render(context, mouseX, mouseY, delta);
-        this.displayNameField.render(context, mouseX, mouseY, delta);
-        this.descriptionField.render(context, mouseX, mouseY, delta);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        this.renderBackgroundTexture(matrices);
+        DrawableHelper.drawCenteredTextWithShadow(matrices, this.textRenderer, this.title, this.width / 2, 17, 16777215);
+        DrawableHelper.drawTextWithShadow(matrices, this.textRenderer, Text.translatable("pack_presets.screen.create_preset.enter_name"), this.width / 2 - 100 + 1, 53, 10526880);
+        DrawableHelper.drawTextWithShadow(matrices, this.textRenderer, Text.translatable("pack_presets.screen.create_preset.enter_display_name"), this.width / 2 - 100 + 1, 94, 10526880);
+        DrawableHelper.drawTextWithShadow(matrices, this.textRenderer, Text.translatable("pack_presets.screen.create_preset.enter_description"), this.width / 2 - 100 + 1, 134, 10526880);
+        this.nameField.render(matrices, mouseX, mouseY, delta);
+        this.displayNameField.render(matrices, mouseX, mouseY, delta);
+        this.descriptionField.render(matrices, mouseX, mouseY, delta);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public void updateCreateButton() {

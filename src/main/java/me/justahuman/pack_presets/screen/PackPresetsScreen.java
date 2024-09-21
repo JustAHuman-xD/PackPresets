@@ -2,12 +2,13 @@ package me.justahuman.pack_presets.screen;
 
 import com.mojang.logging.LogUtils;
 import me.justahuman.pack_presets.screen.widget.PresetListWidget;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.pack.PackScreen;
 import net.minecraft.client.gui.screen.pack.ResourcePackOrganizer;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Util;
@@ -41,8 +42,9 @@ public class PackPresetsScreen extends Screen {
 
     @Override
     protected void init() {
-        this.presetList = this.addDrawableChild(new PresetListWidget(this.client, this, 300, this.height));
-        this.presetList.setX(this.width / 2 - 150);
+        this.presetList = new PresetListWidget(this.client, this, 300, this.height);
+        this.presetList.setLeftPos(this.width / 2 - 150);
+        this.addSelectableChild(this.presetList);
 
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("pack_presets.screen.presets.folder"), button -> {
             Util.getOperatingSystem().open(this.presetsDirectory.toUri());
@@ -74,15 +76,12 @@ public class PackPresetsScreen extends Screen {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredTextWithShadow(this.textRenderer, TITLE, this.width / 2, 8, 16777215);
-        context.drawCenteredTextWithShadow(this.textRenderer, SUB_TITLE, this.width / 2, 20, 0xFFFFFF);
-    }
-
-    @Override
-    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackgroundTexture(context);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        super.renderBackgroundTexture(matrices);
+        this.presetList.render(matrices, mouseX, mouseY, delta);
+        DrawableHelper.drawCenteredTextWithShadow(matrices, this.textRenderer, TITLE, this.width / 2, 8, 16777215);
+        DrawableHelper.drawCenteredTextWithShadow(matrices, this.textRenderer, SUB_TITLE, this.width / 2, 20, 0xFFFFFF);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
     public void refresh() {

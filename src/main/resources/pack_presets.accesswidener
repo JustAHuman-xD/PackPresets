@@ -2,8 +2,7 @@ accessWidener v2 named
 
 accessible field net/minecraft/client/gui/screen/Screen drawables Ljava/util/List;
 accessible field net/minecraft/client/gui/screen/pack/PackListWidget INCOMPATIBLE Lnet/minecraft/text/Text;
-accessible field net/minecraft/client/gui/screen/pack/PackListWidget SELECT_HIGHLIGHTED_TEXTURE Lnet/minecraft/util/Identifier;
-accessible field net/minecraft/client/gui/screen/pack/PackListWidget SELECT_TEXTURE Lnet/minecraft/util/Identifier;
+accessible field net/minecraft/client/gui/screen/pack/PackListWidget RESOURCE_PACKS_TEXTURE Lnet/minecraft/util/Identifier;
 accessible field net/minecraft/client/gui/screen/pack/PackScreen UNKNOWN_PACK Lnet/minecraft/util/Identifier;
 accessible field net/minecraft/client/gui/screen/pack/PackScreen organizer Lnet/minecraft/client/gui/screen/pack/ResourcePackOrganizer;
 

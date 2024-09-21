@@ -35,17 +35,21 @@ public abstract class PackScreenMixin extends Screen {
         }).tooltip(Tooltip.of(Text.translatable("pack_presets.screen.pack.button.open_presets.tooltip")))
         .dimensions(x - 100 - 2 - 50, y, 100, 20).build());
 
-        if (this.drawables.get(2) instanceof ButtonWidget folderButton) {
-            folderButton.setDimensionsAndPosition(100, 20, x - 50, y);
+        if (this.drawables.get(0) instanceof ButtonWidget folderButton) {
+            folderButton.setWidth(100);
+            folderButton.setX(x - 50);
+            folderButton.setY(y);
         }
 
-        doneButton.setDimensionsAndPosition(100, 20, x + 50 + 2, y);
+        doneButton.setWidth(100);
+        doneButton.setX(x + 50 + 2);
+        doneButton.setY(y);
 
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("pack_presets.screen.pack.button.create_preset"), button -> {
             this.close();
             this.client.setScreen(new CreatePresetScreen(self()));
         }).tooltip(Tooltip.of(Text.translatable("pack_presets.screen.pack.button.create_preset.tooltip")))
-        .dimensions(selectedPackList.getX() + selectedPackList.getWidth() + 4, selectedPackList.getY(), 75, 20)
+        .dimensions(selectedPackList.getRowLeft() + selectedPackList.getRowWidth() + 4, ((EntryWidgetAccessor) selectedPackList).getTop(), 75, 20)
         .build());
     }
 
