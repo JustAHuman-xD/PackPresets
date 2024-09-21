@@ -85,7 +85,7 @@ public class PackPresetProvider {
 
             return new PackPreset(
                     id, Text.literal(displayName),
-                    MultilineText.create(MinecraftClient.getInstance().textRenderer, Text.literal(description), 257, 2),
+                    MultilineText.create(MinecraftClient.getInstance().textRenderer, 257, 2, Text.literal(description)),
                     packs.stream().map(manager::getProfile).filter(Objects::nonNull).toList()
             );
         } catch (Exception e) {

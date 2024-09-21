@@ -34,11 +34,11 @@ public class PresetCompatibility {
 
         final TextRenderer renderer = MinecraftClient.getInstance().textRenderer;
         if (oldCount > 0 && newCount > 0) {
-            this.notification = MultilineText.create(renderer, Text.translatable("pack_presets.preset.incompatible.both", oldCount + newCount), 257, 2);
+            this.notification = MultilineText.create(renderer, 257, 2, Text.translatable("pack_presets.preset.incompatible.both", oldCount + newCount));
         } else if (oldCount > 0) {
-            this.notification = MultilineText.create(renderer, Text.translatable("pack_presets.preset.incompatible.old", oldCount), 257, 2);
+            this.notification = MultilineText.create(renderer, 257, 2, Text.translatable("pack_presets.preset.incompatible.old", oldCount));
         } else if (newCount > 0) {
-            this.notification = MultilineText.create(renderer, Text.translatable("pack_presets.preset.incompatible.new", newCount), 257, 2);
+            this.notification = MultilineText.create(renderer, 257, 2, Text.translatable("pack_presets.preset.incompatible.new", newCount));
         } else {
             this.notification = null;
         }
