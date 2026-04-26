@@ -9,7 +9,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.MultilineText;
 import net.minecraft.resource.ResourcePackManager;
 import net.minecraft.text.Text;
-import net.minecraft.util.PathUtil;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -34,7 +33,7 @@ public class PackPresetProvider {
         final List<PackPreset> presets = new ArrayList<>();
 
         try {
-            PathUtil.createDirectories(this.directory);
+            Files.createDirectories(this.directory);
             try (DirectoryStream<Path> stream = Files.newDirectoryStream(this.directory)) {
                 for (Path path : stream) {
                     final String fileName = path.getFileName().toString();
