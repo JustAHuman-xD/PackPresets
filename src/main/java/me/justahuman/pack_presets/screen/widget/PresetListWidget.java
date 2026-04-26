@@ -13,6 +13,7 @@ import net.minecraft.client.gui.screen.pack.PackListWidget.ResourcePackEntry;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -27,7 +28,6 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
         this.screen = screen;
         this.centerListVertically = false;
         Objects.requireNonNull(client.textRenderer);
-        this.setRenderHeader(false, 0);
     }
 
     public void refresh() {
@@ -102,7 +102,7 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
             final int width = 32 / icons.size();
             for (int i = 0; i < icons.size(); i++) {
                 final Identifier icon = icons.get(i);
-                context.drawTexture(icon, x + (i * width), y, 0.0F, 0.0F, width, 32, 32, 32);
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, icon, x + (i * width), y, 0.0F, 0.0F, width, 32, 32, 32);
             }
 
             OrderedText nameText = this.displayName;
@@ -115,7 +115,7 @@ public class PresetListWidget extends AlwaysSelectedEntryListWidget<PresetListWi
                 }
 
                 int relativeX = mouseX - x;
-                context.drawGuiTexture(relativeX < 32 ? PackListWidget.SELECT_HIGHLIGHTED_TEXTURE : PackListWidget.SELECT_TEXTURE, x, y, 32, 32);
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, relativeX < 32 ? PackListWidget.SELECT_HIGHLIGHTED_TEXTURE : PackListWidget.SELECT_TEXTURE, x, y, 32, 32);
             }
 
             context.drawTextWithShadow(this.client.textRenderer, nameText, x + 32 + 2, y + 1, 16777215);

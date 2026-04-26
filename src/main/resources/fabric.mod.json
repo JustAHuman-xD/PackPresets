@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "pack_presets",
   "version": "${version}",
-  "name": "PackPresets",
+  "name": "PackPresets (1.21.8 Port)",
   "description": "A mod to save selected resource packs as a preset for easy swapping ability!",
   "authors": [
     "JustAHuman"
